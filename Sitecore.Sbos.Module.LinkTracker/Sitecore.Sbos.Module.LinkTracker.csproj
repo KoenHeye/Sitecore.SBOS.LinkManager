@@ -63,8 +63,8 @@
       <HintPath>..\packages\Sitecore.Analytics.Model.NoReferences.8.2.170407\lib\NET452\Sitecore.Analytics.Model.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sitecore.Client">
-      <HintPath>C:\inetpub\wwwroot\CleanHabitat\Website\bin\Sitecore.Client.dll</HintPath>
+    <Reference Include="Sitecore.Client, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Client.NoReferences.8.2.170407\lib\NET452\Sitecore.Client.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.Kernel, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sitecore.Kernel.NoReferences.8.2.170407\lib\NET452\Sitecore.Kernel.dll</HintPath>
@@ -91,9 +91,6 @@
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Optimization">
-      <HintPath>C:\inetpub\wwwroot\CleanHabitat\Website\bin\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
