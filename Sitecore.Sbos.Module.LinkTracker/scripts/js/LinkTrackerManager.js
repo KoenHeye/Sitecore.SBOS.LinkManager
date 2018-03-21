@@ -10,7 +10,7 @@ function triggerCampaign(campaignId, shouldTriggerCampaign, campaignData) {
 
         },
         error: function (data) {
-            alert("Campaign is not been triggered", data);
+            console.error("SBOS LinkTracker: Campaign has not been triggered");
         }
     });
 }
@@ -25,7 +25,7 @@ function triggerGoal(goalId, shouldTriggerGoal, goalData) {
 
         },
         error: function (data) {
-            alert("Goal is not been triggered", data);
+            console.error("SBOS LinkTracker: GoalEvent has not been triggered");
         }
     });
 }
@@ -41,7 +41,7 @@ function triggerPageEvent(pageEventId, shouldTriggerPageEvent, pageEventData) {
 
         },
         error: function (data) {
-            alert("PageEvent is not been triggered", data);
+            console.error("SBOS LinkTracker: PageEvent has not been triggered");
         }
     });
 }
