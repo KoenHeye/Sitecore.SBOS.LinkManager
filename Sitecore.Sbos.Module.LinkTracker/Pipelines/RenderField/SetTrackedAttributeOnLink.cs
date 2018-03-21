@@ -21,7 +21,7 @@ namespace Sitecore.Sbos.Module.LinkTracker.Pipelines.RenderField
                    && !string.IsNullOrWhiteSpace(this.BeginningHtml)
                    && !string.IsNullOrWhiteSpace(this.XmlAttributeName)
                    && args != null
-                   && args.Result != null
+                   && args.Result != null                   
                    && this.HasXmlAttributeValue(args.FieldValue, this.AttributeName)
                    && !string.IsNullOrWhiteSpace(args.Result.FirstPart)
                    && args.Result.FirstPart.ToLower().StartsWith(this.BeginningHtml.ToLower());
@@ -34,6 +34,9 @@ namespace Sitecore.Sbos.Module.LinkTracker.Pipelines.RenderField
 
         protected virtual string GetXmlAttributeValue(string linkXml, string attributeName)
         {
+            if (!linkXml.StartsWith("<"))
+                return string.Empty;
+
             XmlDocument xmlDocument = XmlUtil.LoadXml(linkXml);
 
             XmlNode node = xmlDocument?.SelectSingleNode("/link");
