@@ -1,6 +1,6 @@
 ﻿/**
  * Ajax call to backend handler to trigger and track Sitecore analytics data.
- * @param {string} type Should be goal, event or campaign.
+ * @param {string} type Should be goal, event, campaign or outcome.
  * @param {string} id The Sitecore id of the type to be triggered. Including its brackets. Eg. {9b363310-fddd-4e47-9f75-d976a20a07d7}
  * @param {string} data Any additional data that you want to store.
  */

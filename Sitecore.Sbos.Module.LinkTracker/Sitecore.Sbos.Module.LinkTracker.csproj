@@ -63,6 +63,9 @@
       <HintPath>..\packages\Sitecore.Analytics.Model.NoReferences.8.2.170407\lib\NET452\Sitecore.Analytics.Model.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sitecore.Analytics.Outcome, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Analytics.Outcome.NoReferences.8.2.170407\lib\NET452\Sitecore.Analytics.Outcome.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.Client, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sitecore.Client.NoReferences.8.2.170407\lib\NET452\Sitecore.Client.dll</HintPath>
     </Reference>

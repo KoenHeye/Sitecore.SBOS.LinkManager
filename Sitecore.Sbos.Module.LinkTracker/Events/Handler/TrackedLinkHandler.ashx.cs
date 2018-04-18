@@ -8,6 +8,9 @@ using Sitecore.Analytics.Data.Items;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Analytics.Data;
+using Sitecore.Analytics.Outcome.Extensions;
+using Sitecore.Analytics.Outcome.Model;
+using Sitecore.Common;
 using Sitecore.Diagnostics;
 
 namespace Sitecore.Sbos.Module.LinkTracker.Events.Handler
@@ -24,7 +27,8 @@ namespace Sitecore.Sbos.Module.LinkTracker.Events.Handler
             {
                 { "goal", TriggerEvent },
                 { "event", TriggerEvent },
-                { "campaign", TriggerCampaign }
+                { "campaign", TriggerCampaign },
+                { "outcome", TriggerOutcome }
             };
         }
         
@@ -227,6 +231,33 @@ namespace Sitecore.Sbos.Module.LinkTracker.Events.Handler
             {
                 //if you can't track log a warning but do impact user for analytics issues
                 Log.Warn($"Failed to trigger goal: {ex}", typeof(TrackedLinkHandler));
+            }
+        }
+
+        private void TriggerOutcome(ID id, string data = "")
+        {
+            Assert.IsNotNull(id, "outcomeDefinitionId != null");
+
+            try
+            {
+                //start tracker if not active
+                if (!Tracker.IsActive)
+                    Tracker.StartTracking();
+
+                //additional check to ensure that Tracker is active and has a Contact
+                if (!Tracker.IsActive || Tracker.Current?.Contact == null)
+                    return;
+
+                //outcomeId - The unique ID of the outcome in Sitecore.
+                //definitionId - The Item ID of the outcome definition item in the Marketing Control Panel.
+                //contactId - The unique ID of the contact stored in the collection database.
+                var outcome = new ContactOutcome(new ID(), id, Tracker.Current.Contact.ContactId.ToID());
+
+                Tracker.Current.RegisterContactOutcome(outcome);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Failed to trigger outcome for id: {id}", e, typeof(TrackedLinkHandler));
             }
         }
     }
