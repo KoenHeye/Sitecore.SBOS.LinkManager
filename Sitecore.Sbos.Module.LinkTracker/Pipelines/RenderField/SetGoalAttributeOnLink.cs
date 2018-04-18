@@ -8,24 +8,11 @@ namespace Sitecore.Sbos.Module.LinkTracker.Pipelines.RenderField
         public override void Process(RenderFieldArgs args)
         {
             if (!this.CanProcess(args))
-            {
                 return;
-            }
 
-            string shouldTriggerGoal;
-
-            if (!string.IsNullOrEmpty(this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.GoalTriggerAttName)))
-            {
-                shouldTriggerGoal = this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.GoalTriggerAttName) == "1" ? "true" : "false";
-            }
-            else
-            {
-                shouldTriggerGoal = "false";
-            }
-            if(shouldTriggerGoal == "true")
-            {
-                args.Result.FirstPart = this.AddOrExtendAttributeValue(args.Result.FirstPart, "onclick", "triggerGoal('" + this.GetXmlAttributeValue(args.FieldValue, this.XmlAttributeName) + "', '" + shouldTriggerGoal + "', '" + this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.GoalDataAttName) + "');");
-            }           
+            bool shouldTrigger = "1" == (this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.GoalTriggerAttName) ?? "");
+            if(shouldTrigger)
+                args.Result.FirstPart = this.AddOrExtendAttributeValue(args.Result.FirstPart, "onclick", $"triggerGoal('{this.GetXmlAttributeValue(args.FieldValue, this.XmlAttributeName)}', 'true', '{this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.GoalDataAttName)}');");
         }
     }
 }

@@ -8,24 +8,11 @@ namespace Sitecore.Sbos.Module.LinkTracker.Pipelines.RenderField
         public override void Process(RenderFieldArgs args)
         {
             if (!this.CanProcess(args))
-            {
                 return;
-            }
 
-            string shouldTriggerCampaign;
-
-            if (!string.IsNullOrEmpty(this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.CampaignTriggerAttName)))
-            {
-                shouldTriggerCampaign = this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.CampaignTriggerAttName) == "1" ? "true" : "false";
-            }
-            else
-            {
-                shouldTriggerCampaign = "false";
-            }
-            if(shouldTriggerCampaign == "true")
-            {
-                args.Result.FirstPart = this.AddOrExtendAttributeValue(args.Result.FirstPart, "onclick", "triggerCampaign('" + this.GetXmlAttributeValue(args.FieldValue, this.XmlAttributeName) + "', '" + shouldTriggerCampaign + "', '" + this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.CampaignDataAttName) + "');");
-            }           
+            bool shouldTrigger = "1" == (this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.CampaignTriggerAttName) ?? "");
+            if (shouldTrigger)
+                args.Result.FirstPart = this.AddOrExtendAttributeValue(args.Result.FirstPart, "onclick", $"triggerCampaign('{this.GetXmlAttributeValue(args.FieldValue, this.XmlAttributeName)}', 'true', '{this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.CampaignDataAttName)}');"); 
         }
     }
 }

@@ -8,24 +8,11 @@ namespace Sitecore.Sbos.Module.LinkTracker.Pipelines.RenderField
         public override void Process(RenderFieldArgs args)
         {
             if (!this.CanProcess(args))
-            {
                 return;
-            }
 
-            string shouldTriggerPageEvent;
-
-            if (!string.IsNullOrEmpty(this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.PageEventTriggerAttName)))
-            {
-                shouldTriggerPageEvent = this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.PageEventTriggerAttName) == "1" ? "true" : "false";
-            }
-            else
-            {
-                shouldTriggerPageEvent = "false";
-            }
-            if (shouldTriggerPageEvent == "true")
-            {
-                args.Result.FirstPart = this.AddOrExtendAttributeValue(args.Result.FirstPart, "onclick", "triggerPageEvent('" + this.GetXmlAttributeValue(args.FieldValue, this.XmlAttributeName) + "', '" + shouldTriggerPageEvent + "', '" + this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.PageEventDataAttName) + "');");
-            }          
+            bool shouldTrigger = "1" == (this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.PageEventTriggerAttName) ?? "");
+            if (shouldTrigger)
+                args.Result.FirstPart = this.AddOrExtendAttributeValue(args.Result.FirstPart, "onclick", $"triggerPageEvent('{this.GetXmlAttributeValue(args.FieldValue, this.XmlAttributeName)}', 'true', '{this.GetXmlAttributeValue(args.FieldValue, LinkTrackerConstants.PageEventDataAttName)}');");
         }
     }
 }
